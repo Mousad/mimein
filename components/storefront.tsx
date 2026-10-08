@@ -781,44 +781,43 @@ export function ProductCard({
   product: Product;
 }) {
   const add = () => {
-    try {
-      const old = JSON.parse(
-        localStorage.getItem("nova-cart") || "[]",
-      );
+   try {
+  const old = JSON.parse(
+    localStorage.getItem("nova-cart") || "[]",
+  );
 
-      const i = old.findIndex(
-        (x: CartItem) =>
-          x.product.id === product.id,
-      );
+  const i = old.findIndex(
+    (x: CartItem) =>
+      x.product.id === product.id,
+  );
 
-      if (i >= 0) {
-        old[i].quantity++;
-      } else {
-        old.push({
-          product,
-          quantity: 1,
-          size:
-            product.sizes?.[1] ||
-            product.sizes?.[0] ||
-            "",
-          color:
-            product.colors?.[0] || "",
-        });
-      }
+  if (i >= 0) {
+    old[i].quantity++;
+  } else {
+    old.push({
+      product,
+      quantity: 1,
+      size:
+        product.sizes?.[1] ||
+        product.sizes?.[0] ||
+        "",
+      color:
+        product.colors?.[0] || "",
+    });
+  }
 
-      localStorage.setItem(
-        "nova-cart",
-        JSON.stringify(old),
-      );
+  localStorage.setItem(
+    "nova-cart",
+    JSON.stringify(old),
+  );
 
-      window.dispatchEvent(
-        new Event("cart-updated"),
-      );
+  window.dispatchEvent(
+    new Event("cart-updated"),
+  );
 
-      alert("تمت إضافة المنتج إلى السلة");
-    } catch {
-      alert("حدث خطأ أثناء إضافة المنتج");
-    }
+} catch {
+  alert("حدث خطأ أثناء إضافة المنتج");
+}
   };
 
   return (
